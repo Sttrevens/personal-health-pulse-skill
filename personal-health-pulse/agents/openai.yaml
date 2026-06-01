@@ -1,0 +1,4 @@
+interface:
+  display_name: "Personal Health Pulse"
+  short_description: "Build channel-agnostic health coaching agents"
+  default_prompt: "Use $personal-health-pulse to design a local health tracking and coaching workflow for my agent channel."
