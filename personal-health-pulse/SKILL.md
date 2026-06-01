@@ -1,6 +1,6 @@
 ---
 name: personal-health-pulse
-description: Build or operate a channel-agnostic personal health tracking and coaching agent for fat loss, muscle retention, sleep/recovery, alcohol-risk control, and daily/weekly self-review. Use when the user wants an agent to ingest health check-ins from any supported chat/channel, maintain local structured records, produce warm coaching replies, score days, create weekly reviews, or design a Health Pulse-style workflow without binding to a specific messaging transport.
+description: Build or operate a channel-agnostic personal health tracking and coaching agent for fat loss, muscle retention, sleep/recovery, alcohol-risk control, reminders, and daily/weekly self-review. Use when the user wants an agent to ingest health check-ins from any supported chat/channel, maintain local structured records, produce warm coaching replies, plan reminders, score days, create weekly reviews, or design a Health Pulse-style workflow without binding to a specific messaging transport.
 ---
 
 # Personal Health Pulse
@@ -20,7 +20,8 @@ This skill is channel-agnostic. Do not assume any specific chat app, inbox, webh
    - system request: modify the user's Health Pulse project.
 4. Apply coaching principles from `references/coaching-principles.md`.
 5. Use `references/agent-workflow.md` for state, routing, retry, and review lifecycle.
-6. Use `references/channel-adapter.md` to map the current agent channel into the workflow.
+6. Use `references/reminder-planning.md` when the user wants morning, check-in, evening, weekly, or risk-triggered reminders.
+7. Use `references/channel-adapter.md` to map the current agent channel into the workflow.
 
 ## Operating Rules
 
@@ -51,9 +52,16 @@ Use scores as behavioral reviews, not moral judgments.
 - Weekly reviews should summarize trends, largest recovery debts, training execution, alcohol pattern, food quality, and next-week focus.
 - For detailed scoring and coaching patterns, read `references/coaching-principles.md`.
 
+## Reminder Planning
+
+When the user wants reminders, design the reminder intent first. Ask about wake time, training windows, work schedule, sleep target, and high-risk food/alcohol windows. Recommend the smallest useful cadence, then let the active agent/platform decide implementation.
+
+Do not assume the environment supports scheduled jobs. If it does, create reminders through the available adapter. If it does not, produce a portable reminder spec or setup instructions. Read `references/reminder-planning.md` for the full chain.
+
 ## Resources
 
 - `references/data-schema.md`: recommended local files, fields, and JSONL records.
 - `references/coaching-principles.md`: ADIME, recovery debt, standard drinks, scoring bands, and tone.
 - `references/agent-workflow.md`: routing, state lifecycle, light/heavy review, retries, and context windows.
+- `references/reminder-planning.md`: channel-agnostic reminder design, personalization, and adapter handoff.
 - `references/channel-adapter.md`: how to integrate this workflow with any agent-supported conversation channel.

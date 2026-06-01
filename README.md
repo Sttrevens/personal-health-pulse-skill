@@ -13,6 +13,7 @@ It is intentionally **not** tied to any specific messaging transport. Use it wit
 - Coaching principles for ADIME, recovery debt, standard drinks, score bands, and damage-control replies.
 - A channel adapter contract so host agents can connect their own message transport.
 - A light/heavy review workflow for simple questions versus record updates, images, product lookups, scoring, and system changes.
+- A reminder planning workflow that designs morning, check-in, evening, weekly, and risk-triggered reminders without assuming any specific scheduler.
 
 ## Install
 
@@ -48,11 +49,13 @@ personal-health-pulse/
     channel-adapter.md
     coaching-principles.md
     data-schema.md
+    reminder-planning.md
 ```
 
 ## Design Principles
 
 - Channel-agnostic: transport code belongs in an adapter, not in health logic.
+- Scheduler-agnostic: reminder intent belongs in the skill; implementation belongs to the host agent or platform.
 - Local-first: structured files are the default data store unless the user chooses otherwise.
 - Coaching, not diagnosis: this is self-review and behavior support, not medical care.
 - Privacy by default: examples use neutral placeholders and do not include real user IDs, private chat IDs, access tokens, or personal data.

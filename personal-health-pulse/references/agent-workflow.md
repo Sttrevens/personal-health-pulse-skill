@@ -8,6 +8,7 @@ Use this workflow when building or operating a Health Pulse agent behind any cha
 - Ingest layer: deduplicates messages, stores raw records, extracts resources, and queues work.
 - Review worker: reads queued messages and local context, writes health records, and produces replies.
 - Renderer: generates scheduled morning, check-in, evening, score, and weekly summaries.
+- Reminder planner: turns the user's real schedule and risk windows into scheduler-agnostic reminder intents.
 
 ## Routing
 
@@ -64,6 +65,8 @@ Common renderers:
 - evening: record template and closure checklist.
 - score-yesterday: manual or post-closure score, provisional if incomplete.
 - weekly: trends, ADIME summary, largest recovery debt, next-week targets.
+
+For reminder design, use `reminder-planning.md`. Keep reminder intent separate from platform implementation.
 
 ## Verification
 
