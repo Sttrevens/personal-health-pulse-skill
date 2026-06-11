@@ -13,6 +13,7 @@ It is intentionally **not** tied to any specific messaging transport. Use it wit
 - Coaching principles for ADIME, recovery debt, standard drinks, score bands, and damage-control replies.
 - A channel adapter contract so host agents can connect their own message transport.
 - A light/heavy review workflow for simple questions versus record updates, images, product lookups, scoring, and system changes.
+- An event-driven no-token-idle adapter pattern for chat integrations: keep only the listener alive while idle, queue new messages with bounded context, debounce bursts, and retry worker timeouts without waiting for another user message.
 - A reminder planning workflow that designs morning, check-in, evening, weekly, and risk-triggered reminders without assuming any specific scheduler.
 
 ## Install
