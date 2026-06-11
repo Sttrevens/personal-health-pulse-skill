@@ -1,6 +1,6 @@
 ---
 name: personal-health-pulse
-description: Build or operate a channel-agnostic personal health tracking and coaching agent for fat loss, muscle retention, sleep/recovery, alcohol-risk control, reminders, and daily/weekly self-review. Use when the user wants an agent to ingest health check-ins from any supported chat/channel, maintain local structured records, produce warm coaching replies, plan reminders, score days, create weekly reviews, or design a Health Pulse-style workflow without binding to a specific messaging transport.
+description: Use when a user wants an agent to ingest personal health check-ins from any supported channel, maintain local structured records, produce warm coaching replies, plan reminders, score days, create weekly reviews, or design a Health Pulse-style workflow for fat loss, training, sleep/recovery, alcohol-risk control, and self-review.
 ---
 
 # Personal Health Pulse
@@ -32,6 +32,14 @@ This skill is channel-agnostic. Do not assume any specific chat app, inbox, webh
 - Prefer structured files over free text when the data will be reused for scoring or summaries.
 - Use current tools for channel I/O. If the active environment has a messaging connector, use that connector; otherwise generate the reply for the caller to send.
 - Never hard-code user IDs, chat IDs, local usernames, private paths, or personal examples into reusable artifacts.
+
+## Common Failure Modes
+
+- Giving one-off advice without writing reusable health state.
+- Scoring an open day before late-night food, alcohol, and sleep context exist.
+- Turning reminders into noisy lectures instead of small timely interventions.
+- Treating brand, menu, or restaurant guesses as exact without reliable evidence.
+- Responding to medical, eating-disorder, severe alcohol, or self-harm risk as if it were ordinary coaching.
 
 ## Message Handling
 

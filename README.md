@@ -1,10 +1,41 @@
 # Personal Health Pulse Skill
 
-A channel-agnostic skill for building personal health tracking and coaching agents.
+A local-first health pulse for personal agents: record daily check-ins, preserve
+structured health context, and reply with warm coaching instead of shame.
 
 Personal Health Pulse helps an agent ingest health check-ins from any supported conversation channel, maintain local structured records, and produce warm daily/weekly coaching around fat loss, muscle retention, sleep/recovery, alcohol-risk control, and self-review.
 
 It is intentionally **not** tied to any specific messaging transport. Use it with the channel your agent already supports: an agent chat, webhook, email flow, local CLI, desktop thread, or another adapter.
+
+## 10-Second Proof
+
+Give the skill a food, training, sleep, alcohol, mood, or body-metric check-in.
+It decides whether the message should be persisted, writes or updates local
+records, and returns a short coaching reply.
+
+The default local project shape is:
+
+```text
+data/
+├── daily.csv
+├── workouts.csv
+├── body_measurements.csv
+├── life_notes.md
+├── pending_ai_messages.jsonl
+├── daily_assessments.jsonl
+└── food_references.jsonl
+```
+
+The visible artifact is not a dashboard. It is a durable personal health memory:
+daily logs, weekly reviews, recovery-debt notes, reminder intents, and replies
+that future agent sessions can continue from.
+
+## Why Install It
+
+One-off health advice is easy. A useful personal health agent needs continuity:
+what the user ate, how they slept, whether training happened, where alcohol or
+late-night food risk appears, and what tone keeps them moving without guilt.
+This skill turns those recurring check-ins into local structured state.
 
 ## What It Provides
 
@@ -14,6 +45,38 @@ It is intentionally **not** tied to any specific messaging transport. Use it wit
 - A channel adapter contract so host agents can connect their own message transport.
 - A light/heavy review workflow for simple questions versus record updates, images, product lookups, scoring, and system changes.
 - A reminder planning workflow that designs morning, check-in, evening, weekly, and risk-triggered reminders without assuming any specific scheduler.
+
+## Minimum Run
+
+```text
+Use personal-health-pulse to set up a local health pulse project for me.
+
+Goal: fat loss while keeping training performance.
+Main risks: late-night food, poor sleep, and alcohol on social nights.
+Preferred channel: [chat / webhook / CLI / current agent thread].
+```
+
+For an existing project:
+
+```text
+Use personal-health-pulse to record this check-in:
+Lunch was beef rice, coffee, and a protein yogurt. Slept 6h. Training planned
+tonight but energy is low.
+```
+
+## Safety Boundary
+
+This skill is for coaching and self-review, not diagnosis or treatment. It
+should keep records local by default, avoid hard-coded user/channel IDs, avoid
+shaming language, and encourage professional support for medical symptoms,
+eating disorders, severe alcohol dependence, self-harm risk, or other
+high-stakes situations.
+
+## Verification Assets
+
+- [`personal-health-pulse/examples/test-prompts.md`](personal-health-pulse/examples/test-prompts.md)
+  covers project setup, daily check-ins, low-confidence food lookup, reminder
+  planning, and high-stakes safety boundaries.
 
 ## Install
 
@@ -44,6 +107,7 @@ and let it load reference files from `personal-health-pulse/references/` as need
 personal-health-pulse/
   SKILL.md
   agents/openai.yaml
+  examples/test-prompts.md
   references/
     agent-workflow.md
     channel-adapter.md
