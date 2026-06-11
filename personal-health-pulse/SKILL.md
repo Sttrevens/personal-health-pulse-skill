@@ -22,6 +22,7 @@ This skill is channel-agnostic. Do not assume any specific chat app, inbox, webh
 5. Use `references/agent-workflow.md` for state, routing, retry, and review lifecycle.
 6. Use `references/reminder-planning.md` when the user wants morning, check-in, evening, weekly, or risk-triggered reminders.
 7. Use `references/channel-adapter.md` to map the current agent channel into the workflow.
+8. For chat integrations with events, webhooks, or streaming consumers, use the event-driven no-token-idle pattern in `references/agent-workflow.md` and `references/channel-adapter.md`.
 
 ## Operating Rules
 
