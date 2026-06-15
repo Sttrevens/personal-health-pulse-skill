@@ -59,7 +59,10 @@ Use 2-3 daily reminders plus one weekly review at most.
 - Morning should happen after the user can weigh in, not before.
 - Afternoon check-in should happen before dinner decisions become locked.
 - Evening closure should happen early enough to influence sleep, not after the user is already in bed.
-- Weekly review should wait until the final weekend sleep/alcohol context is available.
+- Weekly review should wait until the final weekend sleep/alcohol context is
+  available. If the reviewed week is Sunday-Saturday, a Sunday review should
+  summarize the just-finished week and should not include the still-open Sunday
+  unless the user explicitly wants a live preview.
 - If reminders feel noisy, drop evening first for consistent users and keep morning plus weekly.
 - If alcohol is the main risk, keep afternoon or pre-event reminders.
 - If data completeness is the main risk, keep morning and evening.

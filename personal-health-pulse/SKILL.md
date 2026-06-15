@@ -50,6 +50,8 @@ Use scores as behavioral reviews, not moral judgments.
 
 - Do not automatically score a day until the day is closed: late-night food/alcohol and sleep context should be available.
 - Manual score requests may produce a provisional score if data is incomplete; label it clearly.
+- For open-day health execution feedback, give a provisional live score when there is enough current-day behavior to judge. Do not require future dinner, final steps, no-alcohol confirmation, or tonight's sleep before giving live feedback.
+- Do not double-count cross-day recovery debt. Yesterday's alcohol or short sleep can explain today's readiness, but today's score should judge today's response to that debt.
 - Weekly reviews should summarize trends, largest recovery debts, training execution, alcohol pattern, food quality, and next-week focus.
 - For detailed scoring and coaching patterns, read `references/coaching-principles.md`.
 
@@ -66,3 +68,6 @@ Do not assume the environment supports scheduled jobs. If it does, create remind
 - `references/agent-workflow.md`: routing, state lifecycle, light/heavy review, retries, and context windows.
 - `references/reminder-planning.md`: channel-agnostic reminder design, personalization, and adapter handoff.
 - `references/channel-adapter.md`: how to integrate this workflow with any agent-supported conversation channel.
+- `examples/event-driven-supervisor.md`: provider-neutral supervisor pattern for no-token-idle event channels.
+- `examples/verification-cases.md`: prompts and cases for checking routing, scoring, and coaching behavior.
+- `examples/adapters/`: optional provider/scheduler templates that must be sanitized before reuse.

@@ -37,7 +37,9 @@ Adapter responsibilities:
 - Keep any required stream input or connection handle open so the consumer does not exit from end-of-file.
 - Filter events before queueing them, using configured conversation IDs, user IDs, or allowlists supplied by the host environment.
 - Deduplicate with stable event and message IDs.
-- Queue new messages and trigger the review supervisor only after new work was actually added.
+- Store raw messages in an inbox log, then queue new messages with resource
+  metadata and a bounded recent-context snapshot.
+- Trigger the review supervisor only after new work was actually added.
 - Use a short fixed debounce window, usually 2-5 seconds, to batch rapid user messages and related resources without adding noticeable delay.
 - If the review worker is already running, do not start another one; leave the message queued.
 
@@ -53,6 +55,10 @@ Failure handling:
 - Treat message review timeout as worker failure, not channel failure.
 - After a worker timeout, send a short "received but processing is slow" fallback only if the channel supports it.
 - Requeue retryable failures immediately within the same supervisor chain so one timed-out message does not wait for a future user message.
+
+Before sending the final reply, the review worker should ask the queue whether
+new pending messages arrived during the review. If so, merge them into the
+active processing batch and generate one combined response.
 
 ## Resource Handling
 

@@ -73,6 +73,61 @@ Hard caps:
 - Overeating, alcohol, and late sleep in one chain: max 60.
 - Very incomplete data: max 78 unless conversational notes are unusually strong.
 
+### Provisional Vs Official Scores
+
+Do not collapse live coaching and closed-day review into the same thing.
+
+Use an official score only when the day is closed: late food, alcohol/no alcohol,
+training, steps when available, and the relevant sleep context are known. A
+scheduled morning message should not invent a score for yesterday. It may show a
+previously stored official score, or say that yesterday is still waiting for
+closure.
+
+Use a provisional score when the user reports fat-loss or training execution
+during an open day and there is at least one meaningful fact to judge: food,
+training, sleep, alcohol, steps, body metrics, a plan, or a recovery action. The
+provisional score judges only the part of the day that has happened. Missing
+dinner, final steps, no-alcohol confirmation, or tonight's sleep should lower
+confidence or explain why the official score is not closed; they should not
+block the live score.
+
+Use "not enough for a provisional score" only when there is almost no useful
+execution fact and no strong recovery context. Name the smallest missing fact
+that would make live feedback possible.
+
+Ordinary life, tool, project, encyclopedia, or non-goal-related safety questions
+do not need a score unless the user explicitly asks for one.
+
+### Cross-Day Recovery Debt
+
+Recovery debt can carry into the next day as readiness context, but it should
+not be charged twice.
+
+If alcohol, late eating, late sleep, or short sleep was already counted in day
+D's official score, day D+1 may mention it as carryover context. Day D+1 should
+score the response to that debt: hydration, protein, vegetables/fiber,
+appropriate carbohydrates, caffeine control, adjusted training or light
+activity, no alcohol, and earlier sleep.
+
+Only new day-D+1 behaviors create new deductions: drinking again, overeating
+because of the hangover, skipping a planned session without a recovery plan, or
+turning the carryover into another late night.
+
+### Closed-Day Nutrition And Energy Estimate
+
+When a day is closed and the agent produces a formal daily review, include a
+nutrition and energy estimate when enough facts exist:
+
+- total intake or an intake range,
+- protein, carbohydrates, fat, and alcohol calories when inferable,
+- estimated expenditure or TDEE,
+- estimated energy balance,
+- confidence level and the largest uncertainty drivers.
+
+Restaurant meals, cocktails, and unweighed food should use ranges. Do not imply
+precision that the records cannot support. Store derived estimates in
+`data/daily_assessments.jsonl`, not in `data/daily.csv`.
+
 ## Tone
 
 Use Motivational Interviewing:

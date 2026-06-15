@@ -73,6 +73,12 @@ Worker behavior:
 - On timeout/error, mark active records `failed`, send a short fallback if supported, immediately requeue retryable failures, and rerun within the attempt limit.
 - When the attempt limit is reached, leave the record `failed` with an error summary for manual recovery.
 
+Before sending a reply, run one final queue check. If new compatible `pending`
+records arrived while the worker was thinking, promote them into the active
+`processing` batch, reread the queue, and answer them in the same reply. This
+gives event-driven channels a steering behavior closer to a live agent thread.
+Messages that arrive after the reply is sent remain pending for the next run.
+
 ## Recent Context
 
 For event-driven channels, each queued record should carry a bounded context snapshot:
@@ -94,7 +100,9 @@ Common renderers:
 - fit-check: afternoon prompt for missing weight/training/protein/waist/alcohol risk.
 - evening: record template and closure checklist.
 - score-yesterday: manual or post-closure score, provisional if incomplete.
-- weekly: trends, ADIME summary, largest recovery debt, next-week targets.
+- weekly: trends, ADIME summary, largest recovery debt, next-week targets. Wait
+  for the final sleep/alcohol context of the reviewed week instead of mixing an
+  open current day into the formal weekly average.
 
 For reminder design, use `reminder-planning.md`. Keep reminder intent separate from platform implementation.
 

@@ -56,7 +56,7 @@ Use dated sections for emotional context, relationship stress, alcohol urges, sl
 Queue for channel messages that need agent handling.
 
 ```json
-{"status":"pending","attempt_count":0,"message_id":"msg_123","created_at":"2026-06-01T12:00:00","content":"Lunch was beef rice and coffee","resources":[],"recent_context":{"messages":[]}}
+{"status":"pending","attempt_count":0,"message_id":"msg_123","event_id":"evt_123","conversation_id":"conv_123","created_at":"2026-06-01T12:00:00","category":"record_update","route":"heavy","content":"Lunch was beef rice and coffee","resources":[],"recent_context":{"messages":[]}}
 ```
 
 Statuses:
@@ -67,6 +67,23 @@ Statuses:
 - `needs_clarification`: agent asked a follow-up.
 - `failed`: worker timed out or errored after allowed attempts.
 
+Useful fields:
+
+- `message_id` and `event_id`: stable IDs for deduplication when available.
+- `conversation_id`: adapter-specific conversation or channel ID.
+- `category`: `simple_qa`, `record_update`, `rich_review`, or `system_request`.
+- `route`: worker route such as `light` or `heavy`; implementations may use one
+  unified route if consistency matters more than latency.
+- `attempt_count`: incremented when a worker marks the item `processing`.
+- `processing_started_at`: timestamp used to recover stale work after crashes.
+- `failed_at`, `error_type`, `error_message`: failure audit fields.
+- `reply_summary`: short summary of the sent reply, useful for later
+  `recent_context`.
+- `resources`: metadata for images/files; include `local_path` or
+  `download_status` when relevant.
+- `recent_context`: bounded snapshot, usually same conversation, last 90
+  minutes, max 12 summarized messages.
+
 ### `data/inbox.jsonl`
 
 Append raw channel messages, sanitized where necessary. Include message ID, timestamp, channel/source, content summary, resources, and any write patches.
@@ -76,8 +93,17 @@ Append raw channel messages, sanitized where necessary. Include message ID, time
 Derived coaching judgments.
 
 ```json
-{"date":"2026-06-01","context_risk":"medium","alcohol_standard_drinks":{"value":0,"confidence":"high"},"sleep_debt":"low","alcohol_debt":"low","training_debt":"medium","data_debt":"low","readiness_stage":"action","adime_summary":{"Assessment":"...","Diagnosis":"...","Intervention":"...","Monitoring":"..."}}
+{"date":"2026-06-01","status":"official_closed","score":{"value":82,"confidence":"medium"},"context_risk":"medium","alcohol_standard_drinks":{"value":0,"confidence":"high"},"sleep_debt":"low","alcohol_debt":"low","training_debt":"medium","data_debt":"low","carryover_debt":{"sleep_debt":"low","alcohol_debt":"none"},"readiness_stage":"action","macro_estimate":{"calories":{"low":2100,"high":2400},"protein_g":145,"confidence":"medium"},"expenditure_estimate":{"tdee":2600,"confidence":"low"},"energy_balance_estimate":{"low":-500,"high":-200,"confidence":"low"},"adime_summary":{"Assessment":"...","Diagnosis":"...","Intervention":"...","Monitoring":"..."}}
 ```
+
+Suggested `status` values:
+
+- `provisional_open`: live score or assessment for an open day.
+- `official_closed`: official score after closure context is available.
+- `official_closed_revised`: revised official score after late corrections.
+
+Keep derived nutrition estimates, recovery debt, score explanations, and ADIME
+fields here. Keep `data/daily.csv` compact and factual.
 
 ### `data/food_references.jsonl`
 

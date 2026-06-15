@@ -10,10 +10,10 @@ It is intentionally **not** tied to any specific messaging transport. Use it wit
 
 - A reusable `personal-health-pulse` skill folder.
 - Local-first data schemas for daily records, workouts, body measurements, life notes, message queues, lookup caches, and derived assessments.
-- Coaching principles for ADIME, recovery debt, standard drinks, score bands, and damage-control replies.
+- Coaching principles for ADIME, provisional versus official scores, recovery debt, standard drinks, score bands, and damage-control replies.
 - A channel adapter contract so host agents can connect their own message transport.
 - A light/heavy review workflow for simple questions versus record updates, images, product lookups, scoring, and system changes.
-- An event-driven no-token-idle adapter pattern for chat integrations: keep only the listener alive while idle, queue new messages with bounded context, debounce bursts, and retry worker timeouts without waiting for another user message.
+- An event-driven no-token-idle adapter pattern for chat integrations: keep only the listener alive while idle, queue new messages with bounded context, debounce bursts, merge late-arriving messages before reply, and retry worker timeouts without waiting for another user message.
 - A reminder planning workflow that designs morning, check-in, evening, weekly, and risk-triggered reminders without assuming any specific scheduler.
 
 ## Install
@@ -45,12 +45,22 @@ and let it load reference files from `personal-health-pulse/references/` as need
 personal-health-pulse/
   SKILL.md
   agents/openai.yaml
+  examples/
+    event-driven-supervisor.md
+    verification-cases.md
+    adapters/
+      lark-cli.md
+      macos-launchd.md
   references/
     agent-workflow.md
     channel-adapter.md
     coaching-principles.md
     data-schema.md
     reminder-planning.md
+personal_health_pulse_examples/
+  queue_router.py
+tests/
+  test_queue_router.py
 ```
 
 ## Design Principles
@@ -61,6 +71,7 @@ personal-health-pulse/
 - Coaching, not diagnosis: this is self-review and behavior support, not medical care.
 - Privacy by default: examples use neutral placeholders and do not include real user IDs, private chat IDs, access tokens, or personal data.
 - State over hidden memory: persistent rules and long-term facts should be written into docs or data files.
+- Adapter examples over platform lock-in: provider-specific transport code is useful as a template, but must stay separate from reusable coaching rules.
 
 ## Safety Note
 
